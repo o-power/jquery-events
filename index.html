@@ -9,7 +9,7 @@
     <style>
         #fadeTo_btn {background-color: red;}
         
-        #slideToggle_btn, #slideToggle_panel {
+        #slideToggle_btn, #slideToggle_panel, #hideshow_btn, #hideshow_panel {
             padding: 5px;
             text-align: center;
             background-color: yellow;
@@ -44,19 +44,30 @@
     <button id="fadeTo_btn">Fade To</button>
     
     <br>
-    
     <div id="slideToggle_btn">Click to slide the panel down or up</div>
     <div id="slideToggle_panel">Hello world!</div>
     
+    <!-- jQuery Animations -->
+    <br>
     <button id="animate1_btn">Start animation 1</button><button id="stop_btn">Stop animation 1</button>
     <!-- position must be relative, absolute or fixed -->
     <div id="animate1_div" style="background:#98bf21;height:100px;width:100px;position:relative;"></div>
     
+    <br>
     <button id="animate2_btn">Start animation 2</button>
-    <div id="animate2_div" style="background:#98bf21;height:100px;width:200px;position:absolute;">HELLO</div>
+    <div id="animate2_div" style="background:#98bf21;height:100px;width:200px;position:relative;">HELLO</div>
     
+    <br>
     <button id="nocallback_btn">Hide (no callback)</button>
     <p id="nocallback_p">This is a paragraph with little content.</p>
+    
+    <br>
+    <button id="callback_btn">Hide (with callback)</button>
+    <p id="callback_p">This is a paragraph with little content.</p>
+    
+    <br>
+    <div id="hideshow_btn">Click to slide the panel down or up</div>
+    <div id="hideshow_panel">Hello world!</div>
     
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script>
@@ -109,6 +120,22 @@
                 $("#animate1_div").stop();
             }); 
             
+            // callback function: executes after the current effect is 100% finished
+            $("#nocallback_btn").click(function() {
+                $("#nocallback_p").hide(1000); 
+                alert("The paragraph is now hidden");
+            });
+            
+            $("#callback_btn").click(function() {
+                // alert dialog only pops up after the paragraph is hidden (i.e. after the jQuery event)
+                $("#callback_p").hide(1000, function() {alert("The paragraph is now hidden")});
+            });
+            
+            // method chaining
+            $("#hideshow_btn").click(function() {
+                // hides and then shows the panel (note it slides to left)
+                $("#hideshow_panel").hide("slow").show("slow");
+            });
         });
     </script>
 </body>
